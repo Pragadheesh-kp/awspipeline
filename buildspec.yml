@@ -15,6 +15,7 @@ phases:
       - docker push 241533159425.dkr.ecr.ap-south-1.amazonaws.com/pragade/frontend:latest
       - echo Creating imagedefinitions.json file...
       - printf '[{"name":"frontend","imageUri":"%s"}]' 241533159425.dkr.ecr.ap-south-1.amazonaws.com/pragade/frontend:latest > imagedefinitions.json
+
 artifacts:
   files:
     - imagedefinitions.json
