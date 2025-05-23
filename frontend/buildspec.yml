@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 241533159425.dkr.ecr.ap-south-1.amazonaws.com
+  build:
+    commands:
+      - echo Building the Docker image...
+      - docker buildx build --platform linux/amd64 -t 241533159425.dkr.ecr.ap-south-1.amazonaws.com/pragade/frontend:latest .
+  post_build:
+    commands:
+      - echo Pushing the Docker image...
+      - docker push 241533159425.dkr.ecr.ap-south-1.amazonaws.com/pragade/frontend:latest
+      - echo Creating imagedefinitions.json file...
+      - printf '[{"name":"frontend","imageUri":"%s"}]' 241533159425.dkr.ecr.ap-south-1.amazonaws.com/pragade/frontend:latest > imagedefinitions.json
+artifacts:
+  files:
+    - imagedefinitions.json
