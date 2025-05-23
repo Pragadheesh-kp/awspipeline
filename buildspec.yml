@@ -7,8 +7,9 @@ phases:
   build:
     commands:
       - echo Building the Docker image...
-      #- docker build -t frontend:latest .
-      - docker buildx build --platform linux/amd64 -t 241533159425.dkr.ecr.ap-south-1.amazonaws.com/pragade/frontend:latest .
+      - docker build -t frontend:latest .
+      - docker tag frontend:latest 241533159425.dkr.ecr.ap-south-1.amazonaws.com/pragade/frontend:latest
+      #- docker buildx build --platform linux/amd64 -t 241533159425.dkr.ecr.ap-south-1.amazonaws.com/pragade/frontend:latest .
   post_build:
     commands:
       - echo Pushing the Docker image...
